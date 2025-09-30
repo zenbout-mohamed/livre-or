@@ -34,8 +34,11 @@ if($_SERVER['REQUEST_METHOD']=== "POST"){
         <form action="" method="post">
             <input type="text" name ="login" placeholder="Nom D'utilisateur :"required>
             <input type="password" name ="password" placeholder="Mot de Passe"required>
-            <input type="password" name= "confirm">
+            <input type="password" name= "confirm" placeholder ="Confirmez le mot de passe" required>
+
+            <button type="submit">S'inscrire</button>
         </form>
+        <?php if(!empty($error)) echo "<p>$error</p>";?>
     </main>
 </body>
 </html>
