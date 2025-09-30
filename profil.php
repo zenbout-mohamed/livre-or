@@ -28,10 +28,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $sql = "UPDATE utilisateurs SET login = ?,WHERE id = ?";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([]);
+        $stmt->execute([$newLogin,$_SESSION['id']]);
+        $message = "Nom d'utilisateur mis à jour avec succès";
     }
 }
 
+
+$sql = "SELECT login FROM utilisateurs WHER id = ? ";
+$stmt = $pdo->prepare($sql);
+$stmt->execute($_SESSION['id']);
+$user = $stmt->fetch();
 
 
 
