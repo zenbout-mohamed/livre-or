@@ -9,7 +9,20 @@ if (!isset($_SESSION['id'])) {
 
 $message = "";
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $newLogin=$_POST['login'];
+    $newPassword = $_POST['password'];
+    $confirm_Pass = $_POST['confirm'];
 
+    if (!empty($newPassword)) {
+        if ($newPassword === $confirm_Pass) {
+            $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+            $sql = "UPDATE utilisateurs SET login = ?,password = ?, WHERE id = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+        }
+    }
+}
 
 
 
