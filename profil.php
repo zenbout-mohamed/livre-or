@@ -53,13 +53,13 @@ $user = $stmt->fetch();
         <h1>Modifier un profil</h1>
         <?php if(!empty($message)) echo "<p>$message</p>"; ?>
         <form method="post">
-            <label for="login">Nom d'utilisateur</label>
-            <input type="text" name ="login" placeholder="Nom d'utilisateur :">
+            <label>Nom d'utilisateur</label>
+            <input type="text" name ="login" placeholder="Nom d'utilisateur :" value ="<?php echo htmlspecialchars($user['login']) ?>" required>
 
-            <label for="password">Nouveau mot de Passe : </label>
+            <label>Nouveau mot de Passe : </label>
             <input type="text" name="password" placeholder="Entrez votre nouveau mot de passe : ">
 
-            <label for="confirm_pass">Confirmation nouveau mot de passe :</label>
+            <label>Confirmation nouveau mot de passe :</label>
             <input type="text" name ="confirm_Pass" placeholder ="Confirmez votre nouveau mot de passe :">
 
 
