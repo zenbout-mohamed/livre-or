@@ -19,8 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $hash = password_hash($newPassword, PASSWORD_DEFAULT);
             $sql = "UPDATE utilisateurs SET login = ?,password = ?, WHERE id = ?";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute();
+            $stmt->execute([$newLogin, $hash,$_SESSION['id']]);
+            $_SESSION['login'] = $newLogin;
+            $message = "Profil mis à our avec succès.";
+        } else {
+            $message = "Le mot de passe ne correspond pas.";
         }
+    } else {
+        $sql = "UPDATE utilisateurs SET login = ?,WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([]);
     }
 }
 
