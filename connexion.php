@@ -21,7 +21,27 @@ if ($_SERVER["REQUEST_METHOD"]=== "POST") {
         $error ="E-mail ou mot de passe incorrect.";
     }
 
-
 }
 
+
+
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livre D'Or - Page-Connexion</title>
+</head>
+<body>
+    <main>
+        <form action="" method="post">
+            <input type="text" name ="login" placeholder="Nom d'utilisateur :" required>
+            <input type="password" name ="password" placeholder="NMot de passe :" required>
+            <button type="submit">Connexion</button>
+        </form>
+        <?php if(!empty($error)) echo "<p>$error</p>";?>
+    </main>
+</body>
+</html>
