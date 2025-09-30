@@ -20,9 +20,22 @@ if($_SERVER['REQUEST_METHOD']=== "POST"){
         $error = "Les mots de passes ne correspondent pas.";
     }
 }
-
-
-
-
-
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livre D'Or - Page-Inscription</title>
+</head>
+<body>
+    <main>
+        <form action="" method="post">
+            <input type="text" name ="login" placeholder="Nom D'utilisateur :"required>
+            <input type="password" name ="password" placeholder="Mot de Passe"required>
+            <input type="password" name= "confirm">
+        </form>
+    </main>
+</body>
+</html>
