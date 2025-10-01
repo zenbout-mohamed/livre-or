@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 
-$sql = "SELECT login FROM utilisateurs WHER id = ? ";
+$sql = "SELECT login FROM utilisateurs WHEER id = ? ";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($_SESSION['id']);
 $user = $stmt->fetch();
