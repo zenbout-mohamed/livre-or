@@ -10,6 +10,7 @@ $sql = "SELECT commentaires.commentaire, commentaires.date, utilisateurs.login F
 $stmt = $pdo->query($sql);
 $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+include './assets/header.php';
 ?>
 
 <h2 class="text-2xl font-bold text-gray-800 mb-6">Livre d'Or</h2>
@@ -26,4 +27,4 @@ $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endforeach; ?>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include './assets/footer.php'; ?>
