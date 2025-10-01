@@ -1,72 +1,30 @@
 <?php
-session_start();
-require_once "db.php";
-
-if (!isset($_SESSION['id'])) {
-    header("Location : index.php");
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['login'])) {
+    header("Location: connexion.php");
+    exit();
 }
 
-$message = "";
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $newLogin=$_POST['login'];
-    $newPassword = $_POST['password'];
-    $confirm_Pass = $_POST['confirm'];
-
-    if (!empty($newPassword)) {
-        if ($newPassword === $confirm_Pass) {
-            $hash = password_hash($newPassword, PASSWORD_DEFAULT);
-            $sql = "UPDATE utilisateurs SET login = ?,password = ?, WHERE id = ?";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$newLogin, $hash,$_SESSION['id']]);
-            $_SESSION['login'] = $newLogin;
-            $message = "Profil mis à our avec succès.";
-        } else {
-            $message = "Le mot de passe ne correspond pas.";
-        }
-    } else {
-        $sql = "UPDATE utilisateurs SET login = ?,WHERE id = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$newLogin,$_SESSION['id']]);
-        $message = "Nom d'utilisateur mis à jour avec succès";
-    }
-}
-
-
-$sql = "SELECT login FROM utilisateurs WHEER id = ? ";
-$stmt = $pdo->prepare($sql);
-$stmt->execute($_SESSION['id']);
-$user = $stmt->fetch();
-
+include 'includes/header.php'; 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil</title>
-    <link rel="stylesheet" type="text/css" href="">
-</head>
-<body>
-    <main>
-        <h1>Modifier un profil</h1>
-        <?php if(!empty($message)) echo "<p>$message</p>"; ?>
-        <form method="post">
-            <label>Nom d'utilisateur</label>
-            <input type="text" name ="login" placeholder="Nom d'utilisateur :" value ="<?php echo htmlspecialchars($user['login']) ?>" required>
 
-            <label>Nouveau mot de Passe : </label>
-            <input type="text" name="password" placeholder="Entrez votre nouveau mot de passe : ">
+<h2 class="text-2xl font-bold text-gray-800 mb-6">Mon profil</h2>
 
-            <label>Confirmation nouveau mot de passe :</label>
-            <input type="text" name ="confirm_Pass" placeholder ="Confirmez votre nouveau mot de passe :">
+<form action="" method="POST" class="space-y-4 max-w-md mx-auto bg-white shadow p-6 rounded-lg">
+    <label class="block">
+        <span class="text-gray-700">Login</span>
+        <input type="text" name="login" value="<?= htmlspecialchars($_SESSION['login']) ?>"
+            class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-500">
+    </label>
+    <label class="block">
+        <span class="text-gray-700">Nouveau mot de passe</span>
+        <input type="password" name="password"
+            class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-500">
+    </label>
+    <button type="submit"
+        class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">Mettre à jour</button>
+</form>
 
-
-            <button type="submit">Mettre à jour</button>
-        </form>
-
-        <p><a href="index.php">Retour à l'accueil</a></p>
-    </main>
-</body>
-</html>
+<?php include 'includes/footer.php'; ?>
