@@ -24,24 +24,36 @@ if ($_SERVER["REQUEST_METHOD"]=== "POST") {
 }
 
 
-
+include './assets/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livre D'Or - Page-Connexion</title>
-</head>
-<body>
-    <main>
-        <form action="" method="post">
-            <input type="text" name ="login" placeholder="Nom d'utilisateur :" required>
-            <input type="password" name ="password" placeholder="NMot de passe :" required>
-            <button type="submit">Connexion</button>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <main class="bg-white shadow-xl rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center text-indigo-600 mb-6">Créer un compte :</h1>
+
+        <?php if (!empty($error)): ?>
+            <p class="bg-red-100 text-red-600 px-4 py-2 rounded mb-4"><?= $error ?></p>
+        <?php endif; ?>
+
+        <form method="post" class="space-y-4">
+            <input type="text" name="login" placeholder="Nom d'utilisateur" required 
+            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+
+            <input type="password" name="password" placeholder="Mot de passe" required 
+            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+
+            <input type="password" name="confirm" placeholder="Confirmer le mot de passe" required 
+            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+
+            <button type="submit"class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+                S'inscrire
+            </button>
         </form>
-        <?php if(!empty($error)) echo "<p>$error</p>";?>
-    </main>
+
+        <p class="mt-4 text-center text-gray-600 text-sm">
+            Déjà inscrit ? 
+            <a href="connexion.php" class="text-indigo-600 font-semibold hover:underline">Se connecter</a>
+        </p>
+    </div>
+
 </body>
-</html>

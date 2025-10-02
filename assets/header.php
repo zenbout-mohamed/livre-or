@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <body class="bg-gray-50 text-gray-800 font-sans">
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-extrabold text-indigo-600">📖 Livre d'Or</h1>
+            <h1 class="text-2xl font-extrabold text-indigo-600">Livre d'Or</h1>
             <nav class="space-x-6">
                 <a href="index.php" class="text-gray-700 hover:text-indigo-600 transition">Accueil</a>
                 <a href="livre-or.php" class="text-gray-700 hover:text-indigo-600 transition">Livre d’or</a>
