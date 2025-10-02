@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"]=== "POST") {
 
     $sql = "SELECT * FROM utilisateurs WHERE login = ?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['login']);
+    $stmt->execute([$login]);
     $user = $stmt->fetch();
 
     if($user && password_verify($password, $user['password'])){
