@@ -2,43 +2,56 @@
 session_start();
 require_once "db.php";
 
-if($_SERVER['REQUEST_METHOD']=== "POST"){
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $login = $_POST['login'];
-    $user = $_POST['password'];
-    $pass = $_POST['confirm'];
+    $password = $_POST['password'];
+    $confirm = $_POST['confirm'];
+
     if ($password === $confirm) {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-
-        $sql = "INSERT INTO utilisateurs (login,password) VALUES (?,?)";
+        $sql = "INSERT INTO utilisateurs (login, password) VALUES (?, ?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$login,$hash]);
+        $stmt->execute([$login, $hash]);
 
         header("location: connexion.php");
         exit;
-    }else{
-        $error = "Les mots de passes ne correspondent pas.";
+    } else {
+        $error = "Les mots de passe ne correspondent pas.";
     }
 }
+
+include './assets/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livre D'Or - Page-Inscription</title>
-</head>
-<body>
-    <main>
-        <form action="" method="post">
-            <input type="text" name ="login" placeholder="Nom D'utilisateur :"required>
-            <input type="password" name ="password" placeholder="Mot de Passe"required>
-            <input type="password" name= "confirm" placeholder ="Confirmez le mot de passe" required>
+<main class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white shadow-xl rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center text-indigo-600 mb-6">Créer un compte</h1>
 
-            <button type="submit">S'inscrire</button>
+        <?php if (!empty($error)): ?>
+            <p class="bg-red-100 text-red-600 px-4 py-2 rounded mb-4"><?= $error ?></p>
+        <?php endif; ?>
+
+        <form action="" method="post" class="space-y-4">
+            <input type="text" name="login" placeholder="Nom d'utilisateur" required 
+                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+
+            <input type="password" name="password" placeholder="Mot de passe" required 
+                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+
+            <input type="password" name="confirm" placeholder="Confirmer le mot de passe" required 
+                class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+                S'inscrire
+            </button>
         </form>
-        <?php if(!empty($error)) echo "<p>$error</p>";?>
-    </main>
-</body>
-</html>
+
+        <p class="mt-4 text-center text-gray-600 text-sm">
+            Déjà inscrit ? 
+            <a href="connexion.php" class="text-indigo-600 font-semibold hover:underline">Se connecter</a>
+        </p>
+    </div>
+</main>
+
+<?php include './assets/footer.php'; ?>
