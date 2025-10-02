@@ -4,13 +4,13 @@ require_once "db.php";
 
 if($_SERVER['REQUEST_METHOD']=== "POST"){
     $login = $_POST['login'];
-    $user = $_POST['passwrod'];
+    $user = $_POST['password'];
     $pass = $_POST['confirm'];
     if ($password === $confirm) {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
 
-        $sql = "INSERT INTO utilisateurs (login,password) VALUE (?,?)";
+        $sql = "INSERT INTO utilisateurs (login,password) VALUES (?,?)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$login,$hash]);
 
